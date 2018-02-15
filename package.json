@@ -11,12 +11,13 @@
     },
     "devDependencies": {
         "axios": "^0.17",
-        "bootstrap": "^4.0.0",
-        "popper.js": "^1.12",
         "cross-env": "^5.1",
-        "jquery": "^3.2",
+        "glob-all": "*",
         "laravel-mix": "^2.0",
         "lodash": "^4.17.4",
+        "popper.js": "^1.12",
+        "purgecss-webpack-plugin": "*",
+        "tailwindcss": "^0.4.0",
         "vue": "^2.5.7"
     }
 }
