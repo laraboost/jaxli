@@ -26,4 +26,19 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function featureRequests()
+    {
+        return $this->hasMany(FeatureRequest::class);
+    }
+
+    public function votes()
+    {
+        return $this->hasMany(Vote::class);
+    }
+
+    public function votedFeatureRequests()
+    {
+        return $this->hasManyThrough(FeatureRequest::class, Vote::class, 'user_id', 'id');
+    }
 }

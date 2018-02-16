@@ -15,6 +15,9 @@ class CreateFeatureRequestsTable extends Migration
     {
         Schema::create('feature_requests', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('user_id');
+            $table->string('title');
+            $table->text('body');
             $table->timestamps();
         });
     }
