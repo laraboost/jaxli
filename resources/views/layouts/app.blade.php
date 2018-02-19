@@ -12,6 +12,13 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
+
+    <!-- Global Jaxli Object -->
+    <script>
+        window.jaxli = <?php echo json_encode([
+            'user' => \Auth::check() ? \Auth::user() : null
+        ]); ?>;
+    </script>
 </head>
 <body class="bg-brand-lightest h-screen">
     <div id="app">
@@ -44,10 +51,10 @@
         </nav>
 
         <div class="container mx-auto flex">
-            <div class="md:w-1/4">
+            <div class="md:w-1/4 mr-2">
                 <sidebar></sidebar>
             </div>
-            <div class="md:w-3/4">
+            <div class="md:w-3/4 ml-2">
                 @yield('content')
             </div>
         </div>

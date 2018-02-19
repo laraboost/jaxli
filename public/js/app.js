@@ -31449,11 +31449,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
-        return {};
+        return {
+            user: window.jaxli.user
+        };
     },
 
     components: {
@@ -31590,11 +31593,10 @@ var render = function() {
     { staticClass: "new-request" },
     [
       _c(
-        "a",
+        "button",
         {
           staticClass:
             "bg-brand-lighter text-brand-darker rounded w-full py-2 px-2 no-underline",
-          attrs: { href: "#" },
           on: { click: _vm.showRequestModal }
         },
         [_vm._v("Request Feature")]
@@ -31756,7 +31758,23 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_c("new-request")], 1)
+  return _c(
+    "div",
+    [
+      _vm.user
+        ? _c("new-request")
+        : _c(
+            "a",
+            {
+              staticClass:
+                "bg-brand-lighter block text-center text-brand-darker rounded w-full py-2 px-2 no-underline",
+              attrs: { href: "/login" }
+            },
+            [_vm._v("Sign In")]
+          )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

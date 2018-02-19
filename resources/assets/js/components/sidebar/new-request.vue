@@ -1,6 +1,6 @@
 <template>
     <div class="new-request">
-        <a href="#" @click="showRequestModal" class="bg-brand-lighter text-brand-darker rounded w-full py-2 px-2 no-underline">Request Feature</a>
+        <button @click="showRequestModal" class="bg-brand-lighter text-brand-darker rounded w-full py-2 px-2 no-underline">Request Feature</button>
         <modal name="new-request" classes="rounded-lg bg-white shadow-lg" height="auto">
             <div class="px-4 py-2 border-b text-brand-darker bg-brand-lighter text-xl">Request New Feature</div>
             <div class="p-4">
