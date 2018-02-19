@@ -2,13 +2,15 @@
 
 namespace App;
 
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, Notifiable;
+    use HasApiTokens, HasSlug, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -41,5 +43,12 @@ class User extends Authenticatable
     public function votedFeatureRequests()
     {
         return $this->hasManyThrough(FeatureRequest::class, Vote::class, 'user_id', 'id');
+    }
+
+    public function getSlugOptions()
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('name')
+            ->saveSlugsTo('slug');
     }
 }
