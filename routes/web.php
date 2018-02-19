@@ -11,10 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', 'FeatureRequestController@index')->name('home');
+Route::get('/', 'FeatureRequestController@index')->name('home');
