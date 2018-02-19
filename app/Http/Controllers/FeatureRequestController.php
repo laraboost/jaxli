@@ -14,6 +14,11 @@ class FeatureRequestController extends Controller
 
     public function store()
     {
+        request()->validate([
+            'title' => 'required',
+            'body' => 'required',
+        ]);
+
         return FeatureRequest::create([
             'title' => request()->title,
             'body' => request()->body,
