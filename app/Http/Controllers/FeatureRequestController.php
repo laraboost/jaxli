@@ -9,7 +9,7 @@ class FeatureRequestController extends Controller
 {
     public function index()
     {
-        return FeatureRequest::all();
+        return FeatureRequest::with('user')->get();
     }
 
     public function store()
@@ -17,7 +17,7 @@ class FeatureRequestController extends Controller
         return FeatureRequest::create([
             'title' => request()->title,
             'body' => request()->body,
-            'user_id' => Auth::user()
+            'user_id' => Auth::user()->id
         ]);
     }
 }
