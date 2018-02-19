@@ -31339,7 +31339,18 @@ var render = function() {
       _vm._v("\n        " + _vm._s(_vm.request.body) + "\n    ")
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "border-t p-4" })
+    _c("div", { staticClass: "border-t p-4 flex justify-between" }, [
+      _c("div"),
+      _vm._v(" "),
+      _c("div", { staticClass: "text-xs" }, [
+        _vm._v(_vm._s(_vm.request.votes.length) + " Votes")
+      ]),
+      _vm._v(" "),
+      _c("div", {
+        staticClass: "text-xs",
+        domProps: { textContent: _vm._s(_vm.request.user.name) }
+      })
+    ])
   ])
 }
 var staticRenderFns = []

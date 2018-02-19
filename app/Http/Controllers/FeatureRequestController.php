@@ -9,7 +9,7 @@ class FeatureRequestController extends Controller
 {
     public function index()
     {
-        return FeatureRequest::with('user')->get();
+        return FeatureRequest::with(['user', 'votes'])->get();
     }
 
     public function store()
