@@ -43,7 +43,14 @@
             </div>
         </nav>
 
-        @yield('content')
+        <div class="container mx-auto flex">
+            <div class="md:w-1/4">
+                <a href="#" class="bg-brand-lighter text-brand-darker rounded w-full py-2 px-2 no-underline">Request Feature</a>
+            </div>
+            <div class="md:w-3/4">
+                @yield('content')
+            </div>
+        </div>
     </div>
 
     <!-- Scripts -->

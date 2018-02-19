@@ -13,4 +13,4 @@
 
 Auth::routes();
 
-Route::get('/', 'FeatureRequestController@index')->name('home');
+Route::view('/', 'feature_requests.index')->name('home');
