@@ -9,6 +9,6 @@ class FeatureRequestController extends Controller
     public function index()
     {
         $featureRequests = FeatureRequest::all();
-        return view('home')->with('featureRequests', $featureRequests);
+        return view('feature_requests.index')->with('featureRequests', $featureRequests);
     }
 }
