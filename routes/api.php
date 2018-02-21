@@ -16,4 +16,5 @@ Route::get('/requests', 'FeatureRequestController@index');
 
 Route::middleware('auth:api')->group(function () {
     Route::post('/requests', 'FeatureRequestController@store');
+    Route::post('/vote/{featureRequest}', 'VotingController@update');
 });

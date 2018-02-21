@@ -31313,10 +31313,46 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
         request: Object
+    },
+    data: function data() {
+        return {
+            internal_request: this.request
+        };
+    },
+
+    computed: {
+        current_user_voted: function current_user_voted() {
+            var self = this;
+            if (this.internal_request.votes.length > 0) {
+                return _.filter(this.internal_request.votes, function (pivot) {
+                    return pivot.user_id == window.jaxli.user.id;
+                }).length == 1;
+            }
+
+            return false;
+        },
+        votedClasses: function votedClasses() {
+            if (this.current_user_voted) {
+                return 'bg-brand-dark text-brand-lighter';
+            }
+
+            return 'bg-grey-lightest text-grey-dark';
+        }
+    },
+    methods: {
+        toggleVote: function toggleVote() {
+            var _this = this;
+
+            axios.post('/api/vote/' + this.internal_request.id).then(function (response) {
+                _this.internal_request = response.data;
+            });
+        }
     }
 });
 
@@ -31332,23 +31368,33 @@ var render = function() {
     _c(
       "div",
       { staticClass: "px-4 py-2 text-base bg-brand-lighter text-brand-darker" },
-      [_vm._v(_vm._s(_vm.request.title))]
+      [_vm._v(_vm._s(_vm.internal_request.title))]
     ),
     _vm._v(" "),
     _c("div", { staticClass: "p-4 text-sm" }, [
-      _vm._v("\n        " + _vm._s(_vm.request.body) + "\n    ")
+      _vm._v("\n        " + _vm._s(_vm.internal_request.body) + "\n    ")
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "border-t p-4 flex justify-between" }, [
-      _c("div"),
+      _c("div", [
+        _c(
+          "button",
+          {
+            staticClass: "px-4 py-2 rounded",
+            class: _vm.votedClasses,
+            on: { click: _vm.toggleVote }
+          },
+          [_vm._v("+ 1")]
+        )
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "text-xs" }, [
-        _vm._v(_vm._s(_vm.request.votes.length) + " Votes")
+        _vm._v(_vm._s(_vm.internal_request.votes.length) + " Votes")
       ]),
       _vm._v(" "),
       _c("div", {
         staticClass: "text-xs",
-        domProps: { textContent: _vm._s(_vm.request.user.name) }
+        domProps: { textContent: _vm._s(_vm.internal_request.user.name) }
       })
     ])
   ])

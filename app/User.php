@@ -42,7 +42,7 @@ class User extends Authenticatable
 
     public function votedFeatureRequests()
     {
-        return $this->hasManyThrough(FeatureRequest::class, Vote::class, 'user_id', 'id');
+        return $this->belongsToMany(FeatureRequest::class, 'votes', 'user_id', 'feature_request_id');
     }
 
     public function getSlugOptions()
@@ -50,5 +50,12 @@ class User extends Authenticatable
         return SlugOptions::create()
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
+    }
+
+    public function toggleVote(FeatureRequest $featureRequest)
+    {
+        $this->votedFeatureRequests()->toggle([$featureRequest->id]);
+
+        return $this;
     }
 }
