@@ -58,6 +58,7 @@
                 @yield('content')
             </div>
         </div>
+        <v-dialog/>
     </div>
 
     <!-- Scripts -->

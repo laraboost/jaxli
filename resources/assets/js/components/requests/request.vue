@@ -27,7 +27,7 @@ export default {
     computed: {
         current_user_voted() {
             var self = this;
-            if (this.internal_request.votes.length > 0) {
+            if (this.internal_request.votes.length > 0 && window.jaxli.user) {
                 return _.filter(this.internal_request.votes, function (pivot) {
                     return pivot.user_id == window.jaxli.user.id;
                 }).length == 1;
@@ -45,10 +45,26 @@ export default {
     },
     methods: {
         toggleVote() {
-            axios.post('/api/vote/' + this.internal_request.id)
-                .then(response => {
-                    this.internal_request = response.data;
-                });
+            if (window.jaxli.user) {
+                axios.post('/api/vote/' + this.internal_request.id)
+                    .then(response => {
+                        this.internal_request = response.data;
+                    });
+            }
+
+            this.$modal.show('dialog', {
+                title: 'Not Signed In',
+                text: 'Please sign in to upvote a feature request.',
+                buttons: [
+                    {
+                        title: 'Log In',
+                        handler: () => { top.location.href = '/login';}
+                    },
+                    {
+                        title: 'OK'
+                    }
+                ]
+            });
         }
     }
 }

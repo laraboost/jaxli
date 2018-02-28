@@ -11,7 +11,7 @@ window.Vue = require('vue');
 
 import VModal from 'vue-js-modal'
 
-Vue.use(VModal)
+Vue.use(VModal, { dialog: true })
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -1096,7 +1096,7 @@ window.Vue = __webpack_require__(34);
 
 
 
-Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_js_modal___default.a);
+Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_js_modal___default.a, { dialog: true });
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -31329,7 +31329,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     computed: {
         current_user_voted: function current_user_voted() {
             var self = this;
-            if (this.internal_request.votes.length > 0) {
+            if (this.internal_request.votes.length > 0 && window.jaxli.user) {
                 return _.filter(this.internal_request.votes, function (pivot) {
                     return pivot.user_id == window.jaxli.user.id;
                 }).length == 1;
@@ -31349,8 +31349,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         toggleVote: function toggleVote() {
             var _this = this;
 
-            axios.post('/api/vote/' + this.internal_request.id).then(function (response) {
-                _this.internal_request = response.data;
+            if (window.jaxli.user) {
+                axios.post('/api/vote/' + this.internal_request.id).then(function (response) {
+                    _this.internal_request = response.data;
+                });
+            }
+
+            this.$modal.show('dialog', {
+                title: 'Not Signed In',
+                text: 'Please sign in to upvote a feature request.',
+                buttons: [{
+                    title: 'Log In',
+                    handler: function handler() {
+                        top.location.href = '/login';
+                    }
+                }, {
+                    title: 'OK'
+                }]
             });
         }
     }
