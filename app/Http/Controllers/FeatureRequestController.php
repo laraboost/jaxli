@@ -9,7 +9,10 @@ class FeatureRequestController extends Controller
 {
     public function index()
     {
-        return FeatureRequest::with(['user', 'votes'])->paginate(10);
+        return FeatureRequest::with(['user', 'votes'])
+            ->withCount('votes')
+            ->orderBy('votes_count', 'desc')
+            ->paginate(10);
     }
 
     public function store()
