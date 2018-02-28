@@ -31412,20 +31412,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 axios.post('/api/vote/' + this.internal_request.id).then(function (response) {
                     _this.internal_request = response.data;
                 });
+            } else {
+                this.$modal.show('dialog', {
+                    title: 'Not Signed In',
+                    text: 'Please sign in to upvote a feature request.',
+                    buttons: [{
+                        title: 'Log In',
+                        handler: function handler() {
+                            top.location.href = '/login';
+                        }
+                    }, {
+                        title: 'OK'
+                    }]
+                });
             }
-
-            this.$modal.show('dialog', {
-                title: 'Not Signed In',
-                text: 'Please sign in to upvote a feature request.',
-                buttons: [{
-                    title: 'Log In',
-                    handler: function handler() {
-                        top.location.href = '/login';
-                    }
-                }, {
-                    title: 'OK'
-                }]
-            });
         }
     }
 });

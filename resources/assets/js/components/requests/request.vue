@@ -50,21 +50,21 @@ export default {
                     .then(response => {
                         this.internal_request = response.data;
                     });
+            } else {
+                this.$modal.show('dialog', {
+                    title: 'Not Signed In',
+                    text: 'Please sign in to upvote a feature request.',
+                    buttons: [
+                        {
+                            title: 'Log In',
+                            handler: () => { top.location.href = '/login';}
+                        },
+                        {
+                            title: 'OK'
+                        }
+                    ]
+                });
             }
-
-            this.$modal.show('dialog', {
-                title: 'Not Signed In',
-                text: 'Please sign in to upvote a feature request.',
-                buttons: [
-                    {
-                        title: 'Log In',
-                        handler: () => { top.location.href = '/login';}
-                    },
-                    {
-                        title: 'OK'
-                    }
-                ]
-            });
         }
     }
 }
