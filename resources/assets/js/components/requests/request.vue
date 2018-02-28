@@ -4,9 +4,9 @@
         <div class="p-4 text-sm">
             {{internal_request.body}}
         </div>
-        <div class="border-t p-4 flex justify-between">
+        <div class="border-t p-4 flex justify-between items-center">
             <div>
-                <button class="px-4 py-2 rounded" @click="toggleVote" :class="votedClasses">+ 1</button>
+                <button class="px-4 py-2 rounded text-sm" @click="toggleVote" :class="votedClasses">+ 1</button>
             </div>
             <div class="text-xs">{{internal_request.votes.length}} Votes</div>
             <div class="text-xs" v-text="internal_request.user.name"></div>

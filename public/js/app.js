@@ -31213,6 +31213,24 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__request__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__request___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__request__);
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -31224,10 +31242,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            requests: []
+            requests: [],
+            all_data: null,
+            pagination: {
+                current_page: null,
+                first_page_url: null,
+                from: null,
+                last_page: null,
+                last_page_url: null,
+                next_page_url: null,
+                path: null,
+                per_page: null,
+                prev_page_url: null,
+                to: null,
+                total: null
+            }
         };
     },
 
+    computed: {
+        has_next_page: function has_next_page() {
+            return this.pagination.current_page && this.pagination.current_page < this.pagination.last_page;
+        },
+        has_prev_page: function has_prev_page() {
+            return this.pagination.current_page && this.pagination.current_page !== this.pagination.from;
+        }
+    },
     components: {
         Request: __WEBPACK_IMPORTED_MODULE_0__request___default.a
     },
@@ -31236,11 +31276,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
-        getRequests: function getRequests() {
+        getNextPage: function getNextPage() {
+            if (this.has_next_page) {
+                this.getRequests(this.pagination.current_page + 1);
+            }
+        },
+        getPrevPage: function getPrevPage() {
+            if (this.has_prev_page) {
+                this.getRequests(this.pagination.current_page - 1);
+            }
+        },
+        getRequests: function getRequests($page) {
             var _this = this;
 
-            axios.get('api/requests').then(function (response) {
-                _this.requests = response.data;
+            var url = 'api/requests';
+            if ($page) {
+                url = url + '?page=' + $page;
+            }
+            axios.get(url).then(function (response) {
+                var _response$data = response.data,
+                    data = _response$data.data,
+                    pagination = _objectWithoutProperties(_response$data, ['data']);
+
+                _this.requests = data;
+                _this.pagination = pagination;
             });
         }
     }
@@ -31390,28 +31449,32 @@ var render = function() {
       _vm._v("\n        " + _vm._s(_vm.internal_request.body) + "\n    ")
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "border-t p-4 flex justify-between" }, [
-      _c("div", [
-        _c(
-          "button",
-          {
-            staticClass: "px-4 py-2 rounded",
-            class: _vm.votedClasses,
-            on: { click: _vm.toggleVote }
-          },
-          [_vm._v("+ 1")]
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "text-xs" }, [
-        _vm._v(_vm._s(_vm.internal_request.votes.length) + " Votes")
-      ]),
-      _vm._v(" "),
-      _c("div", {
-        staticClass: "text-xs",
-        domProps: { textContent: _vm._s(_vm.internal_request.user.name) }
-      })
-    ])
+    _c(
+      "div",
+      { staticClass: "border-t p-4 flex justify-between items-center" },
+      [
+        _c("div", [
+          _c(
+            "button",
+            {
+              staticClass: "px-4 py-2 rounded text-sm",
+              class: _vm.votedClasses,
+              on: { click: _vm.toggleVote }
+            },
+            [_vm._v("+ 1")]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "text-xs" }, [
+          _vm._v(_vm._s(_vm.internal_request.votes.length) + " Votes")
+        ]),
+        _vm._v(" "),
+        _c("div", {
+          staticClass: "text-xs",
+          domProps: { textContent: _vm._s(_vm.internal_request.user.name) }
+        })
+      ]
+    )
   ])
 }
 var staticRenderFns = []
@@ -31434,9 +31497,68 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    _vm._l(_vm.requests, function(request) {
-      return _c("request", { key: request.id, attrs: { request: request } })
-    })
+    [
+      _c("div", { staticClass: "flex justify-between mb-4 text-sm" }, [
+        _c("div", [
+          _vm.has_prev_page
+            ? _c(
+                "button",
+                {
+                  staticClass: "px-4 py-2 rounded bg-grey-light",
+                  on: { click: _vm.getPrevPage }
+                },
+                [_vm._v("Prev")]
+              )
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", [
+          _vm.has_next_page
+            ? _c(
+                "button",
+                {
+                  staticClass: "px-4 py-2 rounded bg-grey-light",
+                  on: { click: _vm.getNextPage }
+                },
+                [_vm._v("Next")]
+              )
+            : _vm._e()
+        ])
+      ]),
+      _vm._v(" "),
+      _vm._l(_vm.requests, function(request) {
+        return _c("request", { key: request.id, attrs: { request: request } })
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "flex justify-between mb-4 text-sm" }, [
+        _c("div", [
+          _vm.has_prev_page
+            ? _c(
+                "button",
+                {
+                  staticClass: "px-4 py-2 rounded bg-grey-light",
+                  on: { click: _vm.getPrevPage }
+                },
+                [_vm._v("Prev")]
+              )
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", [
+          _vm.has_next_page
+            ? _c(
+                "button",
+                {
+                  staticClass: "px-4 py-2 rounded bg-grey-light",
+                  on: { click: _vm.getNextPage }
+                },
+                [_vm._v("Next")]
+              )
+            : _vm._e()
+        ])
+      ])
+    ],
+    2
   )
 }
 var staticRenderFns = []
