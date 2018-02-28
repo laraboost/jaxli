@@ -43,3 +43,7 @@
  * @import "utilities/background-patterns";
  * @import "utilities/skew-transforms";
  */
+
+[v-cloak] {
+    display: none;
+}

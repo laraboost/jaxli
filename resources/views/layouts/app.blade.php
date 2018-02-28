@@ -21,7 +21,7 @@
     </script>
 </head>
 <body class="bg-brand-lightest h-screen">
-    <div id="app">
+    <div id="app" v-cloak>
         <nav class="bg-white h-12 shadow mb-8">
             <div class="container mx-auto h-full">
                 <div class="flex items-center justify-center h-12">

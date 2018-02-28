@@ -4796,6 +4796,10 @@ button,
  * @import "utilities/skew-transforms";
  */
 
+[v-cloak] {
+  display: none;
+}
+
 @media (min-width: 576px) {
   .sm\:list-reset {
     list-style: none;
