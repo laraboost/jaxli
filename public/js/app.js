@@ -31401,7 +31401,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 return 'bg-brand-dark text-brand-lighter';
             }
 
-            return 'bg-grey-lightest text-grey-dark';
+            return 'bg-grey-light text-grey-darker';
         }
     },
     methods: {
@@ -31449,32 +31449,28 @@ var render = function() {
       _vm._v("\n        " + _vm._s(_vm.internal_request.body) + "\n    ")
     ]),
     _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "border-t p-4 flex justify-between items-center" },
-      [
-        _c("div", [
-          _c(
-            "button",
-            {
-              staticClass: "px-4 py-2 rounded text-sm",
-              class: _vm.votedClasses,
-              on: { click: _vm.toggleVote }
-            },
-            [_vm._v("+ 1")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "text-xs" }, [
-          _vm._v(_vm._s(_vm.internal_request.votes.length) + " Votes")
-        ]),
-        _vm._v(" "),
-        _c("div", {
-          staticClass: "text-xs",
-          domProps: { textContent: _vm._s(_vm.internal_request.user.name) }
-        })
-      ]
-    )
+    _c("div", { staticClass: "border-t p-4 flex items-center" }, [
+      _c("div", { staticClass: "w-1/3 text-left" }, [
+        _c(
+          "button",
+          {
+            staticClass: "px-4 py-2 rounded text-sm",
+            class: _vm.votedClasses,
+            on: { click: _vm.toggleVote }
+          },
+          [_vm._v("+ 1")]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "w-1/3 text-xs text-center" }, [
+        _vm._v(_vm._s(_vm.internal_request.votes.length) + " Votes")
+      ]),
+      _vm._v(" "),
+      _c("div", {
+        staticClass: "w-1/3 text-xs text-right",
+        domProps: { textContent: _vm._s(_vm.internal_request.user.name) }
+      })
+    ])
   ])
 }
 var staticRenderFns = []

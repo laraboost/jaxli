@@ -4,12 +4,12 @@
         <div class="p-4 text-sm">
             {{internal_request.body}}
         </div>
-        <div class="border-t p-4 flex justify-between items-center">
-            <div>
+        <div class="border-t p-4 flex items-center">
+            <div class="w-1/3 text-left">
                 <button class="px-4 py-2 rounded text-sm" @click="toggleVote" :class="votedClasses">+ 1</button>
             </div>
-            <div class="text-xs">{{internal_request.votes.length}} Votes</div>
-            <div class="text-xs" v-text="internal_request.user.name"></div>
+            <div class="w-1/3 text-xs text-center">{{internal_request.votes.length}} Votes</div>
+            <div class="w-1/3 text-xs text-right" v-text="internal_request.user.name"></div>
         </div>
     </div>
 </template>
@@ -40,7 +40,7 @@ export default {
                 return 'bg-brand-dark text-brand-lighter';
             }
 
-            return 'bg-grey-lightest text-grey-dark';
+            return 'bg-grey-light text-grey-darker';
         }
     },
     methods: {
